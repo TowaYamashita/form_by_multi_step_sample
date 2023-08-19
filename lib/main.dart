@@ -31,6 +31,13 @@ class StepperExample extends StatefulWidget {
 
 class _StepperExampleState extends State<StepperExample> {
   int _index = 0;
+
+  final form1Key = GlobalKey<FormFieldState<String>>();
+  final form2Key = GlobalKey<FormFieldState<String>>();
+  final form3Key = GlobalKey<FormFieldState<String>>();
+  final form4Key = GlobalKey<FormFieldState<String>>();
+  final form5Key = GlobalKey<FormFieldState<String>>();
+
   Map<String, String> formValue = {
     "form1-1": "",
     "form1-2": "",
@@ -45,21 +52,17 @@ class _StepperExampleState extends State<StepperExample> {
       FormStep.create(
         label: 'フォーム1',
         content: Form1(
-          updateValue: (p0, p1) {
-            formValue.update("form1-1", (_) => p0);
-            formValue.update("form1-2", (_) => p1);
-          },
+          form1Key: form1Key,
+          form2Key: form2Key,
         ),
         state: _index == 0 ? StepState.editing : StepState.indexed,
       ),
       FormStep.create(
         label: 'フォーム2',
         content: Form2(
-          updateValue: (p0, p1, p2) {
-            formValue.update("form2-1", (_) => p0);
-            formValue.update("form2-2", (_) => p1);
-            formValue.update("form2-3", (_) => p2);
-          },
+          form1Key: form3Key,
+          form2Key: form4Key,
+          form3Key: form5Key,
         ),
         state: _index == 1 ? StepState.editing : StepState.indexed,
       ),
@@ -93,6 +96,40 @@ class _StepperExampleState extends State<StepperExample> {
     }
 
     void onStepContinue() {
+      if (_index == 0) {
+        if (form1Key.currentState == null || form2Key.currentState == null) {
+          return;
+        }
+
+        if ([
+          form1Key.currentState!.validate(),
+          form2Key.currentState!.validate(),
+        ].any((e) => e == false)) {
+          return;
+        }
+
+        formValue.update("form1-1", (_) => form1Key.currentState?.value ?? '');
+        formValue.update("form1-2", (_) => form2Key.currentState?.value ?? '');
+      }
+
+      if (_index == 1) {
+        if (form3Key.currentState == null || form4Key.currentState == null || form5Key.currentState == null) {
+          return;
+        }
+
+        if ([
+          form3Key.currentState!.validate(),
+          form4Key.currentState!.validate(),
+          form5Key.currentState!.validate(),
+        ].any((e) => e == false)) {
+          return;
+        }
+
+        formValue.update("form2-1", (_) => form3Key.currentState?.value ?? '');
+        formValue.update("form2-2", (_) => form4Key.currentState?.value ?? '');
+        formValue.update("form2-3", (_) => form5Key.currentState?.value ?? '');
+      }
+
       if (_index == steps.length - 1) {
         showConfirmedDialog();
         return;
