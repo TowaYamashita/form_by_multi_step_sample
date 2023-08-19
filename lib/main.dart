@@ -119,17 +119,18 @@ class _StepperExampleState extends State<StepperExample> {
         onStepContinue: onStepContinue,
         onStepTapped: onStepTapped,
         controlsBuilder: (_, details) {
-          return Column(
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton.icon(
-                onPressed: details.onStepContinue,
-                icon: const Icon(Icons.arrow_forward),
-                label: const Text('進む'),
-              ),
               TextButton.icon(
                 onPressed: details.onStepCancel,
                 icon: const Icon(Icons.arrow_back),
                 label: const Text('戻る'),
+              ),
+              ElevatedButton.icon(
+                onPressed: details.onStepContinue,
+                icon: const Icon(Icons.arrow_forward),
+                label: const Text('進む'),
               ),
             ],
           );
