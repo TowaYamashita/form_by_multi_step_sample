@@ -35,17 +35,17 @@ class _StepperExampleState extends State<StepperExample> {
       FormStep.sample(
         label: 'フォーム1',
         content: const Placeholder(),
-        state: _index > 0 ? StepState.complete : StepState.indexed,
+        state: _index == 0 ? StepState.editing : StepState.indexed,
       ),
       FormStep.sample(
         label: 'フォーム2',
         content: const Placeholder(),
-        state: _index > 1 ? StepState.complete : StepState.indexed,
+        state: _index == 1 ? StepState.editing : StepState.indexed,
       ),
       FormStep.sample(
         label: '入力確認',
         content: const Placeholder(),
-        state: _index > 2 ? StepState.complete : StepState.indexed,
+        state: _index == 2 ? StepState.editing : StepState.indexed,
       ),
     ];
 
