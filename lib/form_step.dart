@@ -10,7 +10,7 @@ class FormStep extends Step {
     super.label,
   });
 
-  factory FormStep.sample({
+  factory FormStep.create({
     required String label,
     required Widget content,
     Widget? subTitle,

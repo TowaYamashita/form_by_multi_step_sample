@@ -42,7 +42,7 @@ class _StepperExampleState extends State<StepperExample> {
   @override
   Widget build(BuildContext context) {
     final steps = [
-      FormStep.sample(
+      FormStep.create(
         label: 'フォーム1',
         content: Form1(
           updateValue: (p0, p1) {
@@ -52,7 +52,7 @@ class _StepperExampleState extends State<StepperExample> {
         ),
         state: _index == 0 ? StepState.editing : StepState.indexed,
       ),
-      FormStep.sample(
+      FormStep.create(
         label: 'フォーム2',
         content: Form2(
           updateValue: (p0, p1, p2) {
@@ -63,7 +63,7 @@ class _StepperExampleState extends State<StepperExample> {
         ),
         state: _index == 1 ? StepState.editing : StepState.indexed,
       ),
-      FormStep.sample(
+      FormStep.create(
         label: '入力確認',
         content: Confirm(data: formValue),
         state: _index == 2 ? StepState.editing : StepState.indexed,
