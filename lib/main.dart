@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:form_by_multi_step_sample/confirm.dart';
+import 'package:form_by_multi_step_sample/form_1.dart';
+import 'package:form_by_multi_step_sample/form_2.dart';
 import 'package:form_by_multi_step_sample/form_step.dart';
 
 /// Flutter code sample for [Stepper].
@@ -28,23 +31,41 @@ class StepperExample extends StatefulWidget {
 
 class _StepperExampleState extends State<StepperExample> {
   int _index = 0;
+  Map<String, String> formValue = {
+    "form1-1": "",
+    "form1-2": "",
+    "form2-1": "",
+    "form2-2": "",
+    "form2-3": "",
+  };
 
   @override
   Widget build(BuildContext context) {
     final steps = [
       FormStep.sample(
         label: 'フォーム1',
-        content: const Placeholder(),
+        content: Form1(
+          updateValue: (p0, p1) {
+            formValue.update("form1-1", (_) => p0);
+            formValue.update("form1-2", (_) => p1);
+          },
+        ),
         state: _index == 0 ? StepState.editing : StepState.indexed,
       ),
       FormStep.sample(
         label: 'フォーム2',
-        content: const Placeholder(),
+        content: Form2(
+          updateValue: (p0, p1, p2) {
+            formValue.update("form2-1", (_) => p0);
+            formValue.update("form2-2", (_) => p1);
+            formValue.update("form2-3", (_) => p2);
+          },
+        ),
         state: _index == 1 ? StepState.editing : StepState.indexed,
       ),
       FormStep.sample(
         label: '入力確認',
-        content: const Placeholder(),
+        content: Confirm(data: formValue),
         state: _index == 2 ? StepState.editing : StepState.indexed,
       ),
     ];
